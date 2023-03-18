@@ -128,54 +128,83 @@ int deletar()  //função responsavel por deletar os usuários do sistema
 int main()  //função principal do programa
 	{ 
 	//definindo variáveis
+	int i;
 	int opcao = 0; 
 	int laco = 1;
+	char senhaDigitada[10] = "a";
+	int retorno = 1;
 	//fim das variáveis
 	
-	//loop do programa
-	for(laco=1;laco=1;) 
-	{	
-		
-		system("cls"); //limpa a tela
+while (retorno != 0)
+	{
 		setlocale(LC_ALL, "Portuguese"); //definindo idioma
-		
-		//início do menu
-		printf("### Cartório da EBAC ###\n\n");
-		printf("Escolha a opção desejada do menu:\n\n");
-		printf("\t1 - Registrar nomes\n");
-		printf("\t2 - Consultar nomes\n");
-		printf("\t3 - Deletar nomes\n");
-		printf("\t4 - Sair do sistema \n\n"); 
-		printf("Opção: ");
-		//fim do menu
-		
-		
-		scanf("%d",&opcao); //armazena a escolha do usuário
-		system("cls"); //limpa a tela
-		
-		//início da seleção do menu
-		switch(opcao)
+		printf("### Cartório da EBAC ###\n");
+		printf("Login de administrador!\n\nDigite a sua senha: ");
+		scanf("%s", &senhaDigitada);
+		for(i=0;i<sizeof(senhaDigitada);i++) //sizeof está pegando o tamanho da senha digitada
 		{
-			case 1:
-			registrar(); //chamada de funções
-			break;
-			
-			case 2:
-			consultar();
-			break;
-			
-			case 3:
-			deletar();
-			break;
-			
-			case 4:
-				printf("Obrigado por utilizar o sistema\n");
-				return 0;
-				break;
-			default:
-			printf("Essa opção não está disponível!\n");
+	        if(islower(senhaDigitada[i])) //se o caractere do array for minúsculo, Ex: admin ou aDmIn
+			{
+	            senhaDigitada[i] = toupper(senhaDigitada[i]); //toupper vai transformar em um caractere maiúsculo
+	        }
+    	}
+    
+		retorno = strcmp(senhaDigitada,"ADMIN"); //função comparativa, 0 significa que a array é igual a ADMIN
+	
+		if(retorno == 1)
+		{
+			printf("Senha incorreta!\n\n");
 			system("pause");
-			break;
-		}  //fim da seleção
+		}
+		
+		else
+		{
+			//loop do programa
+			for(laco=1;laco=1;) 
+			{	
+				
+				system("cls"); //limpa a tela
+				setlocale(LC_ALL, "Portuguese"); //definindo idioma
+				
+				//início do menu
+				printf("### Cartório da EBAC ###\n\n");
+				printf("Escolha a opção desejada do menu:\n\n");
+				printf("\t1 - Registrar nomes\n");
+				printf("\t2 - Consultar nomes\n");
+				printf("\t3 - Deletar nomes\n");
+				printf("\t4 - Sair do sistema \n\n"); 
+				printf("Opção: ");
+				//fim do menu
+				
+				
+				scanf("%d",&opcao); //armazena a escolha do usuário
+				system("cls"); //limpa a tela
+				
+				//início da seleção do menu
+				switch(opcao)
+				{
+					case 1:
+					registrar(); //chamada de funções
+					break;
+					
+					case 2:
+					consultar();
+					break;
+					
+					case 3:
+					deletar();
+					break;
+					
+					case 4:
+						printf("Obrigado por utilizar o sistema\n");
+						return 0;
+						break;
+					default:
+					printf("Essa opção não está disponível!\n");
+					system("pause");
+					break;
+				}  //fim da seleção
+			}
+		}
 	}
 }
