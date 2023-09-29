@@ -1,187 +1,182 @@
-# **Sobre**
+# **About this project**
 
-Esse foi meu primeiro projeto em C.
-Um sistema de cadastro e consulta com base em nome, sobrenome, cargo e cpf.
+This was my first project in C. 
 
-## **Bibliotecas**
+It's a registration and query system based on name, last name, position, and CPF(Brazilian Document).
+
+## **Libraries**
 ```c
-#include <stdio.h> //biblioteca de comunicação com o usuário
-#include <stdlib.h> //biblioteca para alocar espaços na memória
-#include <locale.h> //biblioteca de alocações de texto por região
-#include <string.h> //biblioteca responsável pelas strings
+#include <stdio.h> // User communication library
+#include <stdlib.h> // Memory allocation library
+#include <locale.h> // Regional text allocation library
+#include <string.h> // String handling library
 ```
+## **How does it work?**
 
-## **Como funciona?**
-Ao executar este progrma, o usuário primeiro deve inserir suas credenciais de administrador¹, e então, verá o seguinte menu:
+When executing this program, the user must first enter their administrator credentials¹, and then, will see the following menu:
 
-Escolha a opção desejada do menu:
+Choose the desired menu option:
 
-1 - Registrar nomes
+1 - Register names
 
-2 - Consultar nomes
+2 - Query names
 
-3 - Deletar nomes
+3 - Delete names
 
-4 - Sair do sistema
+4 - Exit the system
 
-Opção: SUA ESCOLHA
+Option: Gets user's input
 
-### **PS¹: A senha é "a"**
-Você pode alterar isso dentro da função **int main()**
+### **PS¹: The password is "a"**
 
-linha 134 do programa > char senhaDigitada[10] = "INSIRA SUA SENHA";
+You can change this within the int main() function
 
-Ao escolher uma ação do menu o programa vai executar as seguintes linhas de código,
-chamando assim as funções listadas abaixo, dentro da função principal do programa.
-Ao final de cada ação, registrar por exemplo, o usuário pode voltar ao menu principal e fazer uma nova ação, como consultar um pessoa já cadastrada com base em cargo, cpf, nome, sobrenome.
+Line 134 of the program > char enteredPassword[10] = "INSERT YOUR PASSWORD";
+
+When choosing a menu action, the program will execute the following lines of code, thus calling the functions listed below, within the main function of the program. After each action, for example, registering, the user can return to the main menu and perform a new action, such as consulting a person already registered based on role, CPF, name, last name.
 
 ```c
-// Início da seleção do menu
-switch (opcao) {
+// Start of the menu selection
+switch (option) {
     case 1:
-        registrar(); // Chamada de funções
+        registerUser(); // Function call
         break;
 
     case 2:
-        consultar();
+        query();
         break;
 
     case 3:
-        deletar();
+        delete();
         break;
 
     case 4:
-        printf("Obrigado por utilizar o sistema\n");
+        printf("Thank you for using the system\n");
         return 0;
         break;
 
     default:
-        printf("Essa opção não está disponível!\n");
+        printf("This option is not available!\n");
         system("pause");
         break;
-} // Fim da seleção
+} // End of selection
 ```
-## **Funções**
-- **registrar()** //função responsavel por cadastrar os usuários no sistema
-- **consultar()** //função responsavel por consultar os usuários no sistema
-- **deletar()**   //função responsavel por deletar os usuários do sistema
-- 
+## **Functions**
+- **registerUser()** // Function responsible for registering users in the system
+- **query()** // Function responsible for consulting users in the system
+- **delete()** // Function responsible for deleting users from the system
 ```c
-int registrar() //função responsavel por cadastrar os usuários no sistema 
+int registerUser() // Function responsible for registering users in the system 
 {	
-	//variáveis/strings
-	char arquivo[40];
+	// Variables/strings
+	char file[40];
 	char cpf[40];
-	char nome[40];
-	char sobrenome[40];
-	char cargo[40];
-	//fim das variáveis/strings
+	char name[40];
+	char lastName[40];
+	char role[40];
+	// End of variables/strings
 	
-	printf("Digite o CPF a ser cadastrado: "); //coletando informações do usuário
-	scanf("%s", cpf);  //%s salva informações de strings em variáveis 
-	strcpy(arquivo, cpf); //copia o valor de uma string em outra
+	printf("Enter the CPF to be registered: "); // Collecting user information
+	scanf("%s", cpf);  // %s saves string information into variables 
+	strcpy(file, cpf); // Copy the value of one string to another
 	
-	
-	FILE *file; //cria o arquivo
-	file = fopen(arquivo,"w"); //"w" escreve no arquivo que está sendo criado e acessado
-	fprintf(file, cpf); //salva o valor da variavel no arquivo
-	fclose(file); //fecha o arquivo
-	 
-	
-	file = fopen(arquivo, "a"); //"a" atualiza o arquivo que está sendo acessado
-	fprintf(file, ", ");  //passando uma vírgula para separar informações do usuário
-	fclose(file); //fecha o arquivo
-	
-	printf("Digite um nome a ser cadastrado: "); //cadastrando nome do usuário
-	scanf("%s", nome);
-	
-	file = fopen(arquivo,"a");
-	fprintf(file,nome);
-	fclose(file);
-	
-	file = fopen(arquivo, "a");
-	fprintf(file, ", ");
-	fclose(file);
-	
-	printf("Digite um sobrenome a ser cadastrado: "); //cadastrando sobrenome do usuário
-	scanf("%s", sobrenome);
-	
-	file = fopen(arquivo,"a");
-	fprintf(file,sobrenome);
-	fclose(file);
-	
-	file = fopen(arquivo, "a");
-	fprintf(file, ", ");
-	fclose(file);
-	
-	printf("Digite o cargo a ser cadastrado: "); //cadastrando cargo do usuário
-	scanf("%s", cargo);
-	
-	file = fopen(arquivo, "a");
-	fprintf(file, cargo);
-	fclose(file);	
-} //fim da função "cadastrar"
+	FILE *userFile; // Create the file
+	userFile = fopen(file, "w"); //"w" writes to the file being created and accessed
+	fprintf(userFile, cpf); // Save the variable value to the file
+	fclose(userFile); // Close the file
 
-int consultar()  //função responsavel por consultar os usuários no sistema
+	userFile = fopen(file, "a"); //"a" updates the file being accessed
+	fprintf(userFile, ", ");  // Adding a comma to separate user information
+	fclose(userFile); // Close the file
+
+	printf("Enter a name to be registered: "); // Registering the user's name
+	scanf("%s", name);
+
+	userFile = fopen(file, "a");
+	fprintf(userFile, name);
+	fclose(userFile);
+
+	userFile = fopen(file, "a");
+	fprintf(userFile, ", ");
+	fclose(userFile);
+
+	printf("Enter a last name to be registered: "); // Registering the user's last name
+	scanf("%s", lastName);
+
+	userFile = fopen(file, "a");
+	fprintf(userFile, lastName);
+	fclose(userFile);
+
+	userFile = fopen(file, "a");
+	fprintf(userFile, ", ");
+	fclose(userFile);
+
+	printf("Enter a role to be registered: "); // Registering the user's role
+	scanf("%s", role);
+
+	userFile = fopen(file, "a");
+	fprintf(userFile, role);
+	fclose(userFile);
+} // End of "register" function
+
+int query()  // Function responsible for querying users in the system
 {	
-	//definindo idioma
-	setlocale(LC_ALL, "Portuguese"); 
+	// Set language
+	setlocale(LC_ALL, "English"); 
 	
-	//variáveis/strings
+	// Variables/strings
 	char cpf[40];
-	char conteudo[200];
-	//fim das variáveis/strings
+	char content[200];
+	// End of variables/strings
 	
-	printf("Digite o CPF a ser consultado: "); //consultando o usuário por CPF
-	scanf("%s", cpf); //%s salva informações de strings em variáveis 
+	printf("Enter the CPF to be queried: "); // Querying the user by CPF
+	scanf("%s", cpf); // %s saves string information into variables 
 	
-	FILE *file; //criando/acessando o arquivo
-	file = fopen(cpf, "r"); //"r" para "ler" o arquivo que está sendo acessado
-	
-	
-	if(file == NULL) //validando CPF
+	FILE *userFile; // Create/access the file
+	userFile = fopen(cpf, "r"); //"r" to "read" the file being accessed
+
+	if(userFile == NULL) // Validating CPF
 	{
-		printf("Não foi possível abrir o arquivo. Arquivo não localizado ");
+		printf("Unable to open the file. File not found.");
 	}
 	
-	while(fgets(conteudo, 200, file)!= NULL) //Pega todas os dados do usuário com base em seu CPF
+	while(fgets(content, 200, userFile) != NULL) // Get all user data based on their CPF
 	{
-		printf("\nEssas são as informações do usuário: ");
-		printf("%s", conteudo);
+		printf("\nThese are the user's details: ");
+		printf("%s", content);
 		printf("\n\n");	
 	}
 	
-	system("pause"); //pausa no sistema para o usuário verificar seus dados
-	
-} //fim da função "consultar"
+	system("pause"); // Pause for the user to check their data
+} // End of "query" function
 
-int deletar()  //função responsavel por deletar os usuários do sistema
+int delete()  // Function responsible for deleting users from the system
 {	
-	//variáveis/strings
+	// Variables/strings
 	char cpf[40];
-	//fim das variáveis/strings
+	// End of variables/strings
 	
-	//consultando usuário por CPF
-	printf("Digite o CPF do usuário a ser deletado: ");
+	// Query user by CPF
+	printf("Enter the user's CPF to be deleted: ");
 	scanf("%s", cpf);
 	
-	system("cls"); //limpa a tela
+	system("cls"); // Clear the screen
 	
-	//acessando o arquivo para "ler" o CPF
-	FILE *file;
-	file = fopen(cpf,"r");
-	fclose(file);
+	// Access the file to "read" the CPF
+	FILE *userFile;
+	userFile = fopen(cpf, "r");
+	fclose(userFile);
 	
-	//se o CPF for inexistente: O usuário não se encontra no sistema!
-	if(file == NULL)
+	// If the CPF does not exist: The user is not in the system!
+	if(userFile == NULL)
 	{
-		printf("\nO usuário não se encontra no sistema!\n\n");
+		printf("\nThe user is not in the system!\n\n");
 		system("pause");
 	}
 	else
 	{
 	remove(cpf);
-	printf("\nUsuário deletado com sucesso\n\n");
+	printf("\nUser deleted successfully\n\n");
 	system("pause");
 	}
 ```
